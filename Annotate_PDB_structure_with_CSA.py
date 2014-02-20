@@ -92,6 +92,8 @@ command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query "+ str(c
 print command
 os.system(command)
 os.system(command)
+command = 'cat %s.xml' %(csaInput)
+print command
 os.system('cat %s.xml' %(csaInput))
 
 
