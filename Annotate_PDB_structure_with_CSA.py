@@ -40,7 +40,7 @@ opts, args = parser.parse_args()
 csaInputRaw = opts.CSA
 csaInputRHS = None;
 csaInputLHS = None;
-
+csaInput = None;
 #parse input (example input should look like 12as|A)
 
 if len(csaInputRaw) == 4: #if no chain ID is given
