@@ -65,7 +65,7 @@ print numberedResiduesDict
 n = 80
 sequenceFasta=[sequence[i:i+n] for i in range(0, len(sequence), n)]
 #write to a pdb.fasta file
-file = open("%s.fasta" % (csaInputRaw),'w') 
+file = open("%s.fasta" % (csaInput),'w') 
 file.write('>pdb|%s mol:protein length:%s' % (csaInputRaw,str(len(sequence))))
 file.writelines(sequenceFasta)
     
