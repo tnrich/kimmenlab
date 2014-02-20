@@ -89,7 +89,7 @@ for sequencePart in sequenceFasta:
 #for each protein in csa:
 #Run blastp on the pdb.chain.fasta file we just created
 command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query "+ str(csaInput) + ".fasta -out "+ str(csaInput) + ".xml -outfmt 5"
-#print command
+print command
 os.system(command)
 
 
@@ -143,6 +143,8 @@ def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResidu
             #print "watchout"
             #pass
         if char != '-':
+            #test that the numbering is correct:
+            #CUR
             if csaNumberedResidues[csaResCounter][1] == char:
                 print true
             for resNum in csaRes_dict:
