@@ -62,12 +62,14 @@ print numberedResiduesDict
 
 
 #parse sequence to get it into the fasta standard
-n = 80
-sequenceFasta=[sequence[i:i+n] for i in range(0, len(sequence), n)]
+n = 80 #how long of lines to make
+sequenceFasta = [sequence[i:i+n] for i in range(0, len(sequence), n)]
 #write to a pdb.fasta file
 file = open("%s.fasta" % (csaInput),'w') 
 file.write('>pdb|%s mol:protein length:%s\n' % (csaInputRaw,str(len(sequence))))
-file.writelines(sequenceFasta)
+for sequencePart in sequenceFasta:
+    file.writelines(sequencePart + '\n')
+    
     
 
 
