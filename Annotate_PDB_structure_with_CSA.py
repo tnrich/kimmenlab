@@ -91,6 +91,7 @@ for sequencePart in sequenceFasta:
 command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query "+ str(csaInput) + ".fasta -out "+ str(csaInput) + ".xml -outfmt 5"
 print command
 os.system(command)
+os.system(command)
 os.system('cat %s.xml' %(csaInput))
 
 
