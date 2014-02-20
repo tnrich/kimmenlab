@@ -41,55 +41,59 @@ csaInputRaw = opts.CSA
 csaInputRHS = None;
 csaInputLHS = None;
 
-if len(csaInputRaw) == 4:
+#parse input (example input should look like 12as|A)
+
+if len(csaInputRaw) == 4: #if no chain ID is given
     csaInput = csaInputRaw
-else:
+else: #a chain ID is given
     csaInputLHS, csaInputRHS = csaInputRaw.split("|")
-    csaInput = csaInputLHS +"."+csaInputRHS
+    csaInput = csaInputLHS +"."+csaInputRHS #csaInput looks like 12as.A
     #print csaInputLHS +"."+csaInputRHS + '   csaInputLHS . csaInputRHS'
 
-# checks PDB structure files located at:
+#assign variables for read_sequence_from_pdb_file:
+#checks PDB structure files located at:
 pdbLocation = "/clusterfs/ohana/external/pdb/"
 pdbId = csaInputLHS
 chainId = csaInputRHS
 
-#get PDB sequence
+#get PDB sequence using read_sequence_from_pdb_file; this script was written by Cyrus Afrasiabi
+#and extracts the sequence and residue numbers from a PDB structure file, thus giving the sequence from structure
 sequence, numberedResidues = read_sequence_from_pdb_file(pdbId, chainId, pdbLocation)
 numberedResiduesDict = dict(numberedResidues)
-print sequence
-print numberedResidues
+#print sequence
+#print numberedResidues
 print numberedResiduesDict
 
 
-#parse sequence to get it into the fasta standard
+#parse pdb sequence from structure to a .fasta file
 n = 80 #how long of lines to make
 sequenceFasta = [sequence[i:i+n] for i in range(0, len(sequence), n)]
 #write to a pdb.fasta file
 file = open("%s.fasta" % (csaInput),'w') 
 file.write('>pdb|%s mol:protein length:%s\n' % (csaInputRaw,str(len(sequence))))
+#for each n length segment of sequenceFasta, append it to the pdb.chain.fasta file with a new line
 for sequencePart in sequenceFasta:
     file.writelines(sequencePart + '\n')
     
     
 
-
-#log = open('debug.txt','w')
-#log.write(csaInput + '\n')
+#This is the outdated and incorrect way of obtaining the PDB sequence:
+#print csaInput
 #command = "blastdbcmd -db /clusterfs/ohana/external/pdb/blastdbs/pdb -entry ' " + str(csaInputRaw) + "' > "+ str(csaInput) + '.fasta'
         #eg: blastdbcmd -db /clusterfs/ohana/external/pdb/blastdbs/pdb -entry 12as > 12as.fasta
         #eg: blastdbcmd -db /clusterfs/ohana/external/pdb/blastdbs/pdb -entry "12as|A" > 12as.A.fasta
-#log.write(command + '\n')
+#print command
 #os.system(command)
 
 
 #for each protein in csa:
-#run blastp
+#Run blastp on the pdb.chain.fasta file we just created
 command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query "+ str(csaInput) + ".fasta -out "+ str(csaInput) + ".xml -outfmt 5"
-log.write(command + '\n')
+#print command
 os.system(command)
 
 
-#translation stuff:
+#translation table:
 trans = {'CYS': 'C', 'ASP': 'D', 'SER': 'S', 'GLN': 'Q', 'LYS': 'K', 'ILE': 'I', 'PRO': 'P', 'THR': 'T', 'PHE': 'F', 'ASN': 'N', 'GLY': 'G', 'HIS': 'H', 'LEU': 'L', 'ARG': 'R', 'TRP': 'W', 'ALA': 'A', 'VAL':'V', 'GLU': 'E', 'TYR': 'Y', 'MET': 'M'}
 
 
@@ -113,7 +117,8 @@ for site in csa:
 
 
 #should check for hits 
-def hitChecker(csaRes_dict,csaSeq,csaStart,pdbSeq,pdbStart):
+def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResiduesDict,pdbSeq,pdbStart):
+    #TODO use csaNumberedResidues to parse through the csaSeq instead of the current setup which just uses the start index and a counter
 #make sure that the csaRes is in the hsp
     csaSeq = unicodedata.normalize('NFKD', csaSeq).encode('ascii','ignore')
     pdbSeq = unicodedata.normalize('NFKD', pdbSeq).encode('ascii','ignore')
@@ -129,13 +134,17 @@ def hitChecker(csaRes_dict,csaSeq,csaStart,pdbSeq,pdbStart):
     #print  '  pdbSeq'
     #print pdbSeq 
     #print  '  pdbStart'
-    #print pdbStart 
+    #print pdbStart
+    
+    
     results = {}
     for char in csaSeq:
         #if char == '-':  #was used to make sure the unicode dashes were being converted correctly
             #print "watchout"
             #pass
         if char != '-':
+            if csaNumberedResidues[csaResCounter][1] == char:
+                print true
             for resNum in csaRes_dict:
                 if int(csaResCounter) == (int(resNum) -1):
                     #make sure that the CSA res (as applied to the PDB by the resnum)
@@ -204,7 +213,7 @@ for alignment in blast_record.alignments:
         if hsp.expect < E_VALUE_THRESH:
             counter += 1
 #call hitChecker(csaRes_list,csaSeq,csaStart,pdbSeq,pdbStart)     
-            pdbHits = hitChecker(csaResDict,hsp.query,hsp.query_start,hsp.sbjct,hsp.sbjct_start)
+            pdbHits = hitChecker(csaResDict,hsp.query,hsp.query_start,numberedResidues,numberedResiduesDict,hsp.sbjct,hsp.sbjct_start)
             for i in pdbHits:
                 #print i
                 pass
