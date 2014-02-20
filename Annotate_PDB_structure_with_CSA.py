@@ -20,6 +20,7 @@ from subprocess import call
 from Bio.Blast import NCBIXML
 import optparse
 import unicodedata
+from time import sleep
 
 
 #parse args with optparse
@@ -88,6 +89,7 @@ for sequencePart in sequenceFasta:
 
 #for each protein in csa:
 #Run blastp on the pdb.chain.fasta file we just created
+sleep(1)
 command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query "+ str(csaInput) + ".fasta -out "+ str(csaInput) + ".xml -outfmt 5"
 print command
 os.system(command)
