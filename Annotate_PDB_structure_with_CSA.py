@@ -15,6 +15,7 @@
 import sys
 import os
 from pfacts003.intrepid.models import CSA
+from pfacts003.intrepid.utils import read_sequence_from_pdb_file
 from subprocess import call
 from Bio.Blast import NCBIXML
 import optparse
@@ -47,14 +48,26 @@ else:
     csaInput = csaInputLHS +"."+csaInputRHS
     #print csaInputLHS +"."+csaInputRHS + '   csaInputLHS . csaInputRHS'
 
+# checks PDB structure files located at:
+pdbLocation = "/clusterfs/ohana/external/pdb/"
+pdbId = csaInputLHS
+chainId = csaInputRHS
 
-log = open('debug.txt','w')
-log.write(csaInput + '\n')
-command = "blastdbcmd -db /clusterfs/ohana/external/pdb/blastdbs/pdb -entry ' " + str(csaInputRaw) + "' > "+ str(csaInput) + '.fasta'
-#eg: blastdbcmd -db /clusterfs/ohana/external/pdb/blastdbs/pdb -entry 12as > 12as.fasta
-#eg: blastdbcmd -db /clusterfs/ohana/external/pdb/blastdbs/pdb -entry "12as|A" > 12as.A.fasta
-log.write(command + '\n')
-os.system(command)
+#get PDB sequence
+sequence, numberedResidues = read_sequence_from_pdb_file(pdbId, chainId, pdbLocation)
+numberedResiduesDict = dict(numberedResidues)
+print sequence
+print numberedResidues
+print numberedResiduesDict
+
+
+#log = open('debug.txt','w')
+#log.write(csaInput + '\n')
+#command = "blastdbcmd -db /clusterfs/ohana/external/pdb/blastdbs/pdb -entry ' " + str(csaInputRaw) + "' > "+ str(csaInput) + '.fasta'
+        #eg: blastdbcmd -db /clusterfs/ohana/external/pdb/blastdbs/pdb -entry 12as > 12as.fasta
+        #eg: blastdbcmd -db /clusterfs/ohana/external/pdb/blastdbs/pdb -entry "12as|A" > 12as.A.fasta
+#log.write(command + '\n')
+#os.system(command)
 
 
 #for each protein in csa:
