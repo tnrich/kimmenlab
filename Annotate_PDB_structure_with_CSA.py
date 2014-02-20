@@ -2,6 +2,7 @@
 #should run with python2.4
 
 
+
 #To put this file on Ohana:
 # scp /Users/Tomaso/Documents/kimmenLab/Annotate_PDB_structure_with_CSA.py tnrich@ohana.berkeley.edu:/home/tnrich/blastp_test_dir
 
