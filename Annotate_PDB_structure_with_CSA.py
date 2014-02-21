@@ -89,7 +89,9 @@ for sequencePart in sequenceFasta:
 
 #for each protein in csa:
 #Run blastp on the pdb.chain.fasta file we just created
-sleep(1)
+#test that the .fasta file is being made
+command = "cat %s.fasta" % (csaInput)
+os.system(command)
 command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query "+ str(csaInput) + ".fasta -out "+ str(csaInput) + ".xml -outfmt 5"
 print command
 os.system(command)
