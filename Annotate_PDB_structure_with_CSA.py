@@ -92,6 +92,7 @@ for sequencePart in sequenceFasta:
 #test that the .fasta file is being made
 command = "cat %s.fasta" % (csaInput)
 os.system(command)
+print command
 command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query "+ str(csaInput) + ".fasta -out "+ str(csaInput) + ".xml -outfmt 5"
 print command
 os.system(command)
