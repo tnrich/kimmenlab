@@ -75,6 +75,7 @@ file.write('>pdb|%s mol:protein length:%s\n' % (csaInputRaw,str(len(sequence))))
 #for each n length segment of sequenceFasta, append it to the pdb.chain.fasta file with a new line
 for sequencePart in sequenceFasta:
     file.writelines(sequencePart + '\n')
+file.close
     
     
 
@@ -91,8 +92,8 @@ for sequencePart in sequenceFasta:
 #Run blastp on the pdb.chain.fasta file we just created
 #test that the .fasta file is being made
 command = "cat %s.fasta" % (csaInput)
-os.system(command)
 print command
+os.system(command)
 command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query "+ str(csaInput) + ".fasta -out "+ str(csaInput) + ".xml -outfmt 5"
 print command
 os.system(command)
