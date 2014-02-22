@@ -158,6 +158,8 @@ def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResidu
             #CUR
             if csaNumberedResidues[csaResCounter][1] == char:
                 print "true"
+            else:
+                print "falso!"
             for resNum in csaRes_dict:
                 if int(csaResCounter) == (int(resNum) -1):
                     #make sure that the CSA res (as applied to the PDB by the resnum)
