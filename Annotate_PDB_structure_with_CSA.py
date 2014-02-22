@@ -100,9 +100,9 @@ command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query /home/tn
 print command
 os.system(command)
 os.system(command)
-command = 'cat %s.xml' %(csaInput)
+command = '/home/tnrich/blastp_test_dir/cat %s.xml' %(csaInput)
 print command
-os.system('cat %s.xml' %(csaInput))
+os.system(command)
 
 
 #translation table:
