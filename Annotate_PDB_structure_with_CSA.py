@@ -91,8 +91,6 @@ finally:
 
 #for each protein in csa:
 #Run blastp on the pdb.chain.fasta file we just created
-#test that the .fasta file is being made
-sleep(10)
 command = "cat /home/tnrich/blastp_test_dir/%s.fasta" % (csaInput)
 print command
 print 'here it comes'
@@ -159,7 +157,7 @@ def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResidu
             #test that the numbering is correct:
             #CUR
             if csaNumberedResidues[csaResCounter][1] == char:
-                print true
+                #print true
             for resNum in csaRes_dict:
                 if int(csaResCounter) == (int(resNum) -1):
                     #make sure that the CSA res (as applied to the PDB by the resnum)
