@@ -91,12 +91,12 @@ file.close
 #for each protein in csa:
 #Run blastp on the pdb.chain.fasta file we just created
 #test that the .fasta file is being made
-sleep(1)
+sleep(10)
 command = "cat /home/tnrich/blastp_test_dir/%s.fasta" % (csaInput)
 print command
 print 'here it comes'
 os.system(command)
-command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query /home/tnrich/blastp_test_dir/%s.fasta -out %s.xml -outfmt 5" % (str(csaInput), str(csaInput))
+command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query /home/tnrich/blastp_test_dir/%s.fasta -out /home/tnrich/blastp_test_dir/%s.xml -outfmt 5" % (str(csaInput), str(csaInput))
 print command
 os.system(command)
 os.system(command)
