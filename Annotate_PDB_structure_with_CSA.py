@@ -70,7 +70,7 @@ print numberedResiduesDict
 n = 80 #how long of lines to make
 sequenceFasta = [sequence[i:i+n] for i in range(0, len(sequence), n)]
 #write to a pdb.fasta file
-file = open("%s.fasta" % (csaInput),'w') 
+file = open("~/blastp_test_dir/%s.fasta" % (csaInput),'w') 
 file.write('>pdb|%s mol:protein length:%s\n' % (csaInputRaw,str(len(sequence))))
 #for each n length segment of sequenceFasta, append it to the pdb.chain.fasta file with a new line
 for sequencePart in sequenceFasta:
@@ -92,7 +92,7 @@ file.close
 #Run blastp on the pdb.chain.fasta file we just created
 #test that the .fasta file is being made
 sleep(1)
-command = "cat %s.fasta" % (csaInput)
+command = "cat ~/blastp_test_dir/%s.fasta" % (csaInput)
 print command
 print 'here it comes'
 os.system(command)
