@@ -101,7 +101,7 @@ command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query /home/tn
 print command
 os.system(command)
 os.system(command)
-command = '/home/tnrich/blastp_test_dir/cat %s.xml' %(csaInput)
+command = 'cat /home/tnrich/blastp_test_dir/%s.xml' %(csaInput)
 print command
 os.system(command)
 
@@ -218,7 +218,7 @@ def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResidu
 
 
 #open the .xml file made by blastp using biopython blast_record module
-result_handle = open(str(csaInput) + ".xml")
+result_handle = open("/home/tnrich/blastp_test_dir/%s.xml" % (str(csaInput)))
 blast_record = NCBIXML.read(result_handle)
 #if E-value < .001
 E_VALUE_THRESH = 100 #change this when actually running it
