@@ -71,12 +71,13 @@ n = 80 #how long of lines to make
 sequenceFasta = [sequence[i:i+n] for i in range(0, len(sequence), n)]
 #write to a pdb.fasta file
 file = open("/home/tnrich/blastp_test_dir/%s.fasta" % (csaInput),'w') 
-file.write('>pdb|%s mol:protein length:%s\n' % (csaInputRaw,str(len(sequence))))
-#for each n length segment of sequenceFasta, append it to the pdb.chain.fasta file with a new line
-for sequencePart in sequenceFasta:
-    file.writelines(sequencePart + '\n')
-file.close
-    
+try:
+    file.write('>pdb|%s mol:protein length:%s\n' % (csaInputRaw,str(len(sequence))))
+    #for each n length segment of sequenceFasta, append it to the pdb.chain.fasta file with a new line
+    for sequencePart in sequenceFasta:
+        file.writelines(sequencePart + '\n')
+finally:
+    file.close()
     
 
 #This is the outdated and incorrect way of obtaining the PDB sequence:
