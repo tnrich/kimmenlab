@@ -63,7 +63,7 @@ sequence, numberedResidues = read_sequence_from_pdb_file(pdbId, chainId, pdbLoca
 numberedResiduesDict = dict(numberedResidues)
 #print sequence
 #print numberedResidues
-print numberedResiduesDict
+#print numberedResiduesDict
 
 
 #parse pdb sequence from structure to a .fasta file
@@ -92,15 +92,15 @@ finally:
 #for each protein in csa:
 #Run blastp on the pdb.chain.fasta file we just created
 command = "cat /home/tnrich/blastp_test_dir/%s.fasta" % (csaInput)
-print command
-print 'here it comes'
+#print command
+#print 'here it comes'
 os.system(command)
 command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query /home/tnrich/blastp_test_dir/%s.fasta -out /home/tnrich/blastp_test_dir/%s.xml -outfmt 5" % (str(csaInput), str(csaInput))
-print command
+#print command
 os.system(command)
 os.system(command)
 command = 'cat /home/tnrich/blastp_test_dir/%s.xml' %(csaInput)
-print command
+#print command
 os.system(command)
 
 
@@ -192,38 +192,38 @@ def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResidu
                 #if int(csaResCounter) == (int(resNum) -1):  
                     #make sure that the CSA res (as applied to the PDB by the resnum)
                     #actually matches with CSA res from CSA
-                    if char == csaNumberedResidues[csaResCounter][1]: #make sure char and csaNumberedResidues are matching up
-                        print 'char == csaNumberedResidues[csaResCounter][1]'
-                    else:
-                        print "no char =="
-                    if str(char) == csaResDict[resNum]: #test
-                        print 'true'
-                        print 'resNum'
-                        print resNum
-                        print 'char number'
-                        print csaResCounter
-                        print '  csaStart'
-                        print csaStart
-                        print 'csa seq'
-                        print csaSeq
-                        print 'char'
-                        print char
-                        print 'csaResDict'
-                        print csaResDict[resNum]
-                    else:
-                        print 'false'
-                        print 'resNum'
-                        print resNum
-                        print 'char number'
-                        print csaResCounter
-                        print '  csaStart'
-                        print csaStart
-                        print 'csa seq'
-                        print csaSeq
-                        print 'char'
-                        print char
-                        print 'csaResDict'
-                        print csaResDict[resNum]
+                    #if char == csaNumberedResidues[csaResCounter][1]: #make sure char and csaNumberedResidues are matching up
+                    #    print 'char == csaNumberedResidues[csaResCounter][1]'
+                    #else:
+                    #    print "no char =="
+                    #if str(char) == csaResDict[resNum]: #test
+                    #    print 'true'
+                    #    print 'resNum'
+                    #    print resNum
+                    #    print 'char number'
+                    #    print csaResCounter
+                    #    print '  csaStart'
+                    #    print csaStart
+                    #    print 'csa seq'
+                    #    print csaSeq
+                    #    print 'char'
+                    #    print char
+                    #    print 'csaResDict'
+                    #    print csaResDict[resNum]
+                    #else:
+                    #    print 'false'
+                    #    print 'resNum'
+                    #    print resNum
+                    #    print 'char number'
+                    #    print csaResCounter
+                    #    print '  csaStart'
+                    #    print csaStart
+                    #    print 'csa seq'
+                    #    print csaSeq
+                    #    print 'char'
+                    #    print char
+                    #    print 'csaResDict'
+                    #    print csaResDict[resNum]
                         
                     #print '  resNum'
                     ##print resNum
@@ -261,8 +261,9 @@ for alignment in blast_record.alignments:
             counter += 1
 #call hitChecker(csaRes_list,csaSeq,csaStart,pdbSeq,pdbStart)     
             pdbHits = hitChecker(csaResDict,hsp.query,hsp.query_start,numberedResidues,numberedResiduesDict,hsp.sbjct,hsp.sbjct_start)
+            print pdbHits
             for i in pdbHits:
-                #print i
+                print i
                 pass
             
             #print 'test'    
