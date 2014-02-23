@@ -235,7 +235,7 @@ def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResidu
                     if str(char) == str(pdbSeq[posCounter]):
                         #print str(pdbResCounter) + 'pdbResCounter'
                         #print str(posCounter) + '  posCounter'
-                        #print 'great success!'
+                        print 'great success!'
                         results[pdbResCounter] = char
             csaResCounter +=1
         if pdbSeq[posCounter] != '-':
