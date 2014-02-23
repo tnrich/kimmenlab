@@ -130,12 +130,14 @@ for site in csa:
 #should check for hits 
 def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResiduesDict,pdbSeq,pdbStart):
     #TODO use csaNumberedResidues to parse through the csaSeq instead of the current setup which just uses the start index and a counter
-#make sure that the csaRes is in the hsp
-    csaSeq = unicodedata.normalize('NFKD', csaSeq).encode('ascii','ignore')
+    
+    #make sure that the csaRes is in the hsp
+    
+    csaSeq = unicodedata.normalize('NFKD', csaSeq).encode('ascii','ignore') #convert the unicode csaSeq from blastp to ascii string
     pdbSeq = unicodedata.normalize('NFKD', pdbSeq).encode('ascii','ignore')
     posCounter = 0;
     csaResCounter = int(csaStart) - 1 
-    pdbResCounter = int(pdbStart) - 1
+    pdbResCounter = int(pdbStart) 
     #print '  csaRes_list   '
     #print csaRes_list 
     #print '  csaSeq'
@@ -149,22 +151,50 @@ def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResidu
     
     
     results = {}
-    for char in csaSeq:
+    #Step 1:
+    #we want to parse through every char in the CSA seq and first check if it is one of the catalytic residues in
+    #the CSA list csaRes_Dict. Every time a characer is a -, we discard it. If it is a character, we increase the
+    #csaResCounter by 1 (which starts at csaStart-1 (for example if the csaStart=1, our first time through, our csaResCounter would =0 ))
+    #This allows us to know the number of the character we're on in the csaSeq, which we want to compare to the CSA site list
+    #(do this by comparing csaNumberedResidues[csaResCounter][0] == resNum in csaRes_dict )
+    #for example, if resnum = 1 (aka the first residue in the sequence is catalytic according to CSA),
+    #then csaNumberedResidues[csaResCounter][0] should be 1 also.
+    #it is important to pull this number from the csaNumberedResidues because there can be breaks in the sequence that the csaResCounter alone will not account for
+    
+    #Step 2:
+    #then check if the residue is the same as the one in the pdb sequence
+    #eg if str(char) == str(pdbSeq[posCounter]):
+    #posCounter starts at 0 and is updated every char, thus by the 30th time through the char loop, poscounter = 29
+    #so pdbSeq[29] is asking about the 30th character in the pdb seq which, if it is aligned to the catalytic char in csaSeq,
+    #should make the above relationship hold
+    
+    #Step 3
+    #if the pdb residue and the CSA residues are aligned, we then want to transfer that annotation to the correct residue number of the pdbseq
+    #we can extract that number using pdbResCounter which should be set to the residue number (it starts at pdbStart and increments each time its char!='-')
+    #eg pdbseq residue 1 is a match, pdbResCounter will also equal 1
+    
+    for char in csaSeq:     
         #if char == '-':  #was used to make sure the unicode dashes were being converted correctly
             #print "watchout"
             #pass
         if char != '-':
             #test that the numbering is correct:
             #CUR
-            if csaNumberedResidues[csaResCounter][1] == char:
-                print "true"
-            else:
-                print "falso!"
+            #if csaNumberedResidues[csaResCounter][1] == char: #This test was passed!!
+            #    print "true"
+            #else:
+            #    print "falso!"
+            
+                
             for resNum in csaRes_dict:
-                if int(csaResCounter) == (int(resNum) -1):
+                if csaNumberedResidues[csaResCounter][0] == resNum:
+                        
+                #if int(csaResCounter) == (int(resNum) -1):  
                     #make sure that the CSA res (as applied to the PDB by the resnum)
                     #actually matches with CSA res from CSA
-                    if str(char) == csaResDict[resNum]:
+                    if char == csaNumberedResidues[csaResCounter][1]: #make sure char and csaNumberedResidues are matching up
+                        print 'char == csaNumberedResidues[csaResCounter][1]'
+                    if str(char) == csaResDict[resNum]: #test
                         print 'true'
                         print 'resNum'
                         print resNum
