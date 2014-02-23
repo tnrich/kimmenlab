@@ -194,6 +194,8 @@ def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResidu
                     #actually matches with CSA res from CSA
                     if char == csaNumberedResidues[csaResCounter][1]: #make sure char and csaNumberedResidues are matching up
                         print 'char == csaNumberedResidues[csaResCounter][1]'
+                    else:
+                        print "no char =="
                     if str(char) == csaResDict[resNum]: #test
                         print 'true'
                         print 'resNum'
