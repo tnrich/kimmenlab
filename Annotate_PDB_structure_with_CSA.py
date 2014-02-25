@@ -268,7 +268,7 @@ for alignment in blast_record.alignments:
             
             
             print pdbHits
-            for key, value in pdbHits:
+            for key, value in pdbHits.items():
                 print key, value
                 
                 pass
