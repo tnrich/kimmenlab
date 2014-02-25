@@ -91,17 +91,17 @@ finally:
 
 #for each protein in csa:
 #Run blastp on the pdb.chain.fasta file we just created
-command = "cat /home/tnrich/blastp_test_dir/%s.fasta" % (csaInput)
+#command = "cat /home/tnrich/blastp_test_dir/%s.fasta" % (csaInput)
 #print command
 #print 'here it comes'
-os.system(command)
+#os.system(command)
 command = "blastp -db /clusterfs/ohana/external/pdb/blastdbs/pdb -query /home/tnrich/blastp_test_dir/%s.fasta -out /home/tnrich/blastp_test_dir/%s.xml -outfmt 5" % (str(csaInput), str(csaInput))
 #print command
 os.system(command)
-os.system(command)
-command = 'cat /home/tnrich/blastp_test_dir/%s.xml' %(csaInput)
+#os.system(command)
+#command = 'cat /home/tnrich/blastp_test_dir/%s.xml' %(csaInput)
 #print command
-os.system(command)
+#os.system(command)
 
 
 #translation table:
@@ -128,8 +128,7 @@ for site in csa:
 
 
 #should check for hits 
-def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResiduesDict,pdbSeq,pdbStart):
-    #TODO use csaNumberedResidues to parse through the csaSeq instead of the current setup which just uses the start index and a counter
+def hit_checker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResiduesDict,pdbSeq,pdbStart):
     
     #make sure that the csaRes is in the hsp
     
@@ -247,6 +246,10 @@ def hitChecker(csaRes_dict,csaSeq,csaStart,csaNumberedResidues,csaNumberedResidu
         pass
     return results
 
+#TODO
+def populate_database(): #
+    pass
+
 
 
 #open the .xml file made by blastp using biopython blast_record module
@@ -260,11 +263,25 @@ for alignment in blast_record.alignments:
         if hsp.expect < E_VALUE_THRESH:
             counter += 1
 #call hitChecker(csaRes_list,csaSeq,csaStart,pdbSeq,pdbStart)     
-            pdbHits = hitChecker(csaResDict,hsp.query,hsp.query_start,numberedResidues,numberedResiduesDict,hsp.sbjct,hsp.sbjct_start)
+            pdbHits = hit_checker(csaResDict,hsp.query,hsp.query_start,numberedResidues,numberedResiduesDict,hsp.sbjct,hsp.sbjct_start)
+            
+            
+            
             print pdbHits
-            for i in pdbHits:
-                print i
+            for key, value in pdbHits:
+                print key, value
+                
                 pass
+            #Here's a list of the attributes we want to send to our database table:
+            #identifier for the residue being annotated (e.g., D185)
+            #EvidenceCode (alphanumeric): foreign key to another table where we explain what these evidence codes mean; BCSA (BLAST from CSA), (BSP: BLAST from SwissProt).
+            #Source: UniProt sequence accession/identifier or PDB identifier; 
+            #Bit score
+            #E-value
+            #Percent identity
+            
+
+            
             
             #print 'test'    
             #print pdbHits
