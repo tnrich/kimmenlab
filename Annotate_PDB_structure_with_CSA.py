@@ -124,7 +124,7 @@ for site in csa:
     resOneLetter = trans[resString.upper()]
     #print resOneLetter
     #print site.residue
-    csaResDict[site.residue_number] = resOneLetter
+    csaResDict[site.residue_number] = resOneLetter 
 
 
 #should check for hits 
