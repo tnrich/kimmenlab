@@ -265,6 +265,12 @@ for alignment in blast_record.alignments:
 #call hitChecker(csaRes_list,csaSeq,csaStart,pdbSeq,pdbStart)     
             pdbHits = hit_checker(csaResDict,hsp.query,hsp.query_start,numberedResidues,numberedResiduesDict,hsp.sbjct,hsp.sbjct_start)
             
+            print(dir(hsp))
+            
+            #get e value:
+            print 'hsp.expect'
+            
+            #get Bit score: 
             
             
             print pdbHits
@@ -295,7 +301,7 @@ for alignment in blast_record.alignments:
             ##print(hsp.query[0:] + '...')
             ##print(hsp.match[0:75] + '...')
             ##print(hsp.sbjct[0:75] + '...')
-            ##print(dir(hsp))
+            
 if counter == 0:
     sys.exit()
 
