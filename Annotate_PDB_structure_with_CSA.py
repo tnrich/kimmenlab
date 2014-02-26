@@ -268,9 +268,14 @@ for alignment in blast_record.alignments:
             print(dir(hsp))
             
             #get e value:
-            print 'hsp.expect'
+            print hsp.expect
             
-            #get Bit score: 
+            #get Bit score:
+            print hsp.score
+            
+            print hsp.match
+            
+            
             
             
             print pdbHits
