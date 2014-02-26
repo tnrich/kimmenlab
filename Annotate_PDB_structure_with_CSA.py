@@ -273,7 +273,10 @@ for alignment in blast_record.alignments:
             #get Bit score:
             print hsp.score
             
-            print hsp.match
+            for string in dir(hsp):
+                print hsp.string
+                
+            
             
             
             
