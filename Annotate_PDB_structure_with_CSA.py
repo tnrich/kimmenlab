@@ -275,7 +275,7 @@ for alignment in blast_record.alignments:
             
             if pdbHits != {}:
                 
-                print alignment.title.__dict__.items()
+                print alignment.__dict__.items()['title']
                 #print alignment['title']
                 print '----------------------------------------------------------'
                 
