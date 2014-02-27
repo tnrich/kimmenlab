@@ -278,7 +278,7 @@ for alignment in blast_record.alignments:
                 print '----------------------------------------------------------'
                 #print query info
                 print 'Query'
-                print vars(blast_record)[query]
+                print vars(blast_record)['query']
                 print 'Annotation Type'
                 print 'CsaToPdbBlastP'
                 #print alignment info:
