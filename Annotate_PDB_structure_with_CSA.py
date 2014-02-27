@@ -265,19 +265,27 @@ for alignment in blast_record.alignments:
 #call hitChecker(csaRes_list,csaSeq,csaStart,pdbSeq,pdbStart)     
             pdbHits = hit_checker(csaResDict,hsp.query,hsp.query_start,numberedResidues,numberedResiduesDict,hsp.sbjct,hsp.sbjct_start)
             
-            pdbHits.update(hsp.__dict__.items())
-            print 'pdbHits'
             print pdbHits
-            print "end"
-            print(dir(hsp))
+            for item in hsp.__dict__.items():
+                print item
+            #
+            #for key, value in pdbHits:
+            #    catalyticResidueIdentifier = {}
+            #
+            #
+            #print 'pdbHits'
+            #print pdbHits
+            #print "end"
+            #print(dir(hsp))
+            #pdbHits.update(hsp.__dict__.items())
+            #
+            ##get e value:
+            #print hsp.expect
+            #
+            ##get Bit score:
+            #print hsp.score
             
-            #get e value:
-            print hsp.expect
             
-            #get Bit score:
-            print hsp.score
-            
-            print hsp.__dict__.items()
                 
                 
             
