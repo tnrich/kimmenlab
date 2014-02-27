@@ -266,7 +266,9 @@ for alignment in blast_record.alignments:
             pdbHits = hit_checker(csaResDict,hsp.query,hsp.query_start,numberedResidues,numberedResiduesDict,hsp.sbjct,hsp.sbjct_start)
             
             pdbHits.update(hsp.__dict__.items())
+            print 'pdbHits'
             print pdbHits
+            print "end"
             print(dir(hsp))
             
             #get e value:
