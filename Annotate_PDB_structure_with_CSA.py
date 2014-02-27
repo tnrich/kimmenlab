@@ -266,6 +266,7 @@ for alignment in blast_record.alignments:
             pdbHits = hit_checker(csaResDict,hsp.query,hsp.query_start,numberedResidues,numberedResiduesDict,hsp.sbjct,hsp.sbjct_start)
             
             if pdbHits != {}:
+                print '----------------------------------------------------------'
                 print 'Residue Hits:'
                 print pdbHits
                 for item in hsp.__dict__.items():
