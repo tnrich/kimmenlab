@@ -279,17 +279,15 @@ for alignment in blast_record.alignments:
                 #for each non-empty hit:
                 print '----------------------------------------------------------'
                 #print query info
-                print 'Query'
+                print 'Query:'
                 print vars(blast_record)['query']
-                print 'Annotation Type'
+                print 'Annotation Type:'
                 print 'CsaToPdbBlastP'
                 #print alignment info:
-                print 'Hit Title'
+                print 'Hit:'
                 print vars(alignment)['title']
-                print 'Hit Length'
+                print 'Hit Length:'
                 print vars(alignment)['length']
-                print 'title'
-                print vars(alignment)['title']
                 #print hit info:
                 print 'Residue Hits:'
                 print pdbHits
