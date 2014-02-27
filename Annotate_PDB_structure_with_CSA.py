@@ -265,6 +265,8 @@ for alignment in blast_record.alignments:
 #call hitChecker(csaRes_list,csaSeq,csaStart,pdbSeq,pdbStart)     
             pdbHits = hit_checker(csaResDict,hsp.query,hsp.query_start,numberedResidues,numberedResiduesDict,hsp.sbjct,hsp.sbjct_start)
             
+            pdbHits.update(hsp.__dict__.items())
+            print pdbHits
             print(dir(hsp))
             
             #get e value:
@@ -279,13 +281,7 @@ for alignment in blast_record.alignments:
             
             
             
-            
-            
-            print pdbHits
-            for key, value in pdbHits.items():
-                print key, value
-                
-                pass
+        
             #Here's a list of the attributes we want to send to our database table:
             #identifier for the residue being annotated (e.g., D185)
             #EvidenceCode (alphanumeric): foreign key to another table where we explain what these evidence codes mean; BCSA (BLAST from CSA), (BSP: BLAST from SwissProt).
