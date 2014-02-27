@@ -274,8 +274,8 @@ for alignment in blast_record.alignments:
             pdbHits = hit_checker(csaResDict,hsp.query,hsp.query_start,numberedResidues,numberedResiduesDict,hsp.sbjct,hsp.sbjct_start)
             
             if pdbHits != {}:
-                
-                print alignment.__dict__.items()['title']
+                print vars(alignment)
+                print alignment.__dict__.items()
                 #print alignment['title']
                 print '----------------------------------------------------------'
                 
