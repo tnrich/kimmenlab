@@ -259,6 +259,11 @@ blast_record = NCBIXML.read(result_handle)
 E_VALUE_THRESH = 100 #change this when actually running it
 counter = 0
 for alignment in blast_record.alignments:
+    #figure out what is in alignment
+    for item in alignment.__dict__.items():
+        print item
+    
+    
     for hsp in alignment.hsps:
         if hsp.expect < E_VALUE_THRESH:
             counter += 1
